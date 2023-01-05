@@ -1,4 +1,4 @@
-package com.neuronNet.dataTransfer;
+package com.clientservernn.dataTransfer;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -6,7 +6,20 @@ import java.util.Arrays;
 import java.util.Objects;
 
 
+/**
+ * The class is used to transfer data between the client and the server
+ * using a byte data transfer stream and its own way of converting data to bytes.
+ * The data in the class is contained in the form of an {@link ImageData} {@code imageData}, a command
+ * in the form of {@link Command} {@code command}, an array of {@link String} {@code message}
+ * and positions for CRUD operations int {@code position}.
+ * Also, each object of the class can be assigned its own transfer code {@code transferCode}.
+ *
+ * @author  Yauheni Slabko
+ * @since   1.0
+ */
+
 public class DataTransfer {
+
 
     /**
      * A constant holding current version of {@code DataTransfer}
@@ -91,7 +104,7 @@ public class DataTransfer {
      */
 
 
-    public DataTransfer(ImageData imageData,  Command command, String... message){
+    public DataTransfer(ImageData imageData, Command command, String... message){
         this(imageData,command,-1,message);
     }
 
@@ -217,7 +230,7 @@ public class DataTransfer {
             messageByteSize = messageByteArray.length;
         }
         if(this.imageData!=null){
-            imageByteArray=imageData.serialize();
+            imageByteArray=ImageDataUtil.serialize(imageData);
             imageByteSize=imageByteArray.length;
         }
         overallSize=dataLength+imageByteSize+messageByteSize;
@@ -284,7 +297,7 @@ public class DataTransfer {
         if (imageByteSize>0) {
             imageByteArray=new byte[imageByteSize];
             byteBuffer.get(imageByteArray);
-            imageData=ImageData.deserialize(imageByteArray);
+            imageData=ImageDataUtil.deserialize(imageByteArray);
 
         }
         if (messageByteSize>0) {
@@ -325,7 +338,7 @@ public class DataTransfer {
      * @return  if the argument is {@code null}, then a string equal to
      *          {@code "null"}; otherwise, the value of
      *          {@code dataTransfer.toString()} is returned.
-     * @see     java.lang.Object#toString()
+     * @see     Object#toString()
      */
     public static String getDescription(DataTransfer dataTransfer) {
         return dataTransfer==null?"null":dataTransfer.toString();
