@@ -2,6 +2,7 @@
 
 package com.clientservernn.server.neuralNetwork;
 
+import java.util.Arrays;
 import java.util.function.DoubleUnaryOperator;
 
 
@@ -34,5 +35,10 @@ public class Neuron {
     public double output(double[] inputs) {
         this.outputCache = Util.dotProduct(inputs, this.weights);
         return this.activationFunction.applyAsDouble(this.outputCache);
+    }
+
+    @Override
+    public String toString() {
+        return "Neuron, weights: "+ Arrays.toString(weights);
     }
 }

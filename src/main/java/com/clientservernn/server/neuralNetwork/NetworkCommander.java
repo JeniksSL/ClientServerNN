@@ -82,6 +82,7 @@ public class NetworkCommander {
         this.trainDate = new Date(0L);
         this.trainData = RawCharData.getTrainData(charset);
         this.characterNetwork = new Network<>(new int[]{DATA_WIDTH*DATA_HEIGHT, this.characterList.size()}, 0.1, Util::sigmoid, Util::derivativeSigmoid);
+
     }
 
     /**
@@ -102,7 +103,6 @@ public class NetworkCommander {
      */
     public HashMap<String, Double> interpretOutputMap(double[] output) {
         HashMap<String, Double> hashMap = new HashMap<>();
-
         for(int i = 0; i < output.length; ++i) {
             hashMap.put(this.characterList.get(i), output[i]);
         }
@@ -160,7 +160,9 @@ public class NetworkCommander {
      * Reverse access value of this {@code NetworkCommander}.
      */
     public void changeAccess() {
+
         this.access = !this.access;
+        System.out.println(characterNetwork.toString());
     }
 
     /**

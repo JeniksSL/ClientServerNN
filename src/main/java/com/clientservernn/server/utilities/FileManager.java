@@ -18,7 +18,9 @@ import java.util.*;
  * simultaneous reading and writing to file.
  *
  * @author  Yauheni Slabko
+ * @see ExceptionHandler
  * @since   1.0
+ *
  */
 
 public final class  FileManager {
@@ -66,7 +68,8 @@ public final class  FileManager {
                 try {
                     Files.createDirectories(paths);
                 } catch (IOException exception) {
-                    ExceptionHandler.setException(FileManager.class.getName()+".getCharList(String "+paths+")",exception);
+                    String source=ExceptionHandler.getSource(FileManager.class, "loadMap()", Files.class,"Files.createDirectories()" , Path.class,paths);
+                    ExceptionHandler.setException(source,exception);
                     paths=null;
                 }
             }
@@ -126,8 +129,7 @@ public final class  FileManager {
     public static <T extends Serializable> void saveAsObject(String charset, String name, T requested) throws IOException {
         String extension=".dat";
         final Path current=Paths.get(dir.toString(),charset,name+extension);
-        Optional<Path> pathOptional =currentPathList.stream().filter(path->path.compareTo(current)==0).findAny();
-        if (pathOptional.isEmpty()) {
+        if (!currentPathList.contains(current)) {
             currentPathList.add(current);
         }
         synchronized (current) {
@@ -177,14 +179,13 @@ public final class  FileManager {
      *
      * @param charset the requested charset.
      * @param name the requested name.
-     * @param requested the requested object.
+     * @param requested the requested object type.
      * @return the {@link Optional} with requested object or empty.
      */
     public static <T extends Serializable> Optional<T> loadObject(String charset, String name, T requested) {
         String extension=".dat";
         final Path current=Paths.get(dir.toString(),charset,name+extension);
-        Optional<Path> pathOptional =currentPathList.stream().filter(path->path.compareTo(current)==0).findAny();
-        if (pathOptional.isEmpty()) {
+        if (!currentPathList.contains(current)) {
             currentPathList.add(current);
         }
         synchronized (current) {

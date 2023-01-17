@@ -2,14 +2,10 @@
 package com.clientservernn.server.guiFX;
 
 
-import com.clientservernn.dataTransfer.ImageData;
-import com.clientservernn.server.neuralNetwork.NetworkCommander;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 
@@ -104,9 +100,7 @@ public class Server implements Runnable {
    public ArrayList<ClientItem> getClientItems(){
        ArrayList<ClientItem> clientItems=new ArrayList<>();
        for (ClientThread clientThread : clientArrayList) {
-           if (clientThread.isConnected()) {
-               clientItems.add(clientThread.getClientItem());
-           }
+           clientItems.add(clientThread.getClientItem());
        }
        return clientItems;
    }

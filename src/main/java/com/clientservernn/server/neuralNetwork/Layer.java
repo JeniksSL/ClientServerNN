@@ -62,4 +62,14 @@ public class Layer {
                     .applyAsDouble(neurons.get(i).outputCache) * sumWeightsAndDeltas;
         }
     }
+
+
+    @Override
+    public String toString() {
+        String layerDescription = "Layer, neurons: \n";
+        for (int i = 0; i < neurons.size(); i++) {
+            layerDescription=layerDescription.concat(neurons.get(i).toString()).concat("\n");
+        }
+        return layerDescription;
+    }
 }

@@ -86,4 +86,14 @@ public class Network<T> {
         double[] result = this.getOutputs(RawCharData.getDoublesArrayRefactored(imageData));
         return interpret.apply(result);
     }
+
+    @Override
+    public String toString() {
+        String layersDescription="Neural network, layers: \n";
+        for (int i = 0; i < layers.size(); i++) {
+            layersDescription= layersDescription.concat(layers.get(i).toString()).concat("\n");
+        }
+        return layersDescription;
+
+    }
 }
