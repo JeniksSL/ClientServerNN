@@ -1,16 +1,12 @@
 
 package com.clientservernn.server.neuralNetwork;
 
+import com.clientservernn.common.CharsetList;
 import com.clientservernn.server.utilities.FileManager;
 import java.util.Date;
 import java.util.Objects;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 /**
  * The class  {@code NetworkItem} represents {@code NetworkCommander} instance for
@@ -24,7 +20,7 @@ public class NetworkItem {
 
     //Properties of {@code NetworkCommander} instance.
     public final IntegerProperty numberItems;
-    public final StringProperty charset;
+    public final ObjectProperty<CharsetList> charset;
     public final BooleanProperty access;
 
     /**
@@ -41,8 +37,8 @@ public class NetworkItem {
         return this.numberItems.get();
     }
 
-    public String getCharset() {
-        return (String)this.charset.get();
+    public CharsetList getCharset() {
+        return this.charset.get();
     }
 
     public boolean isAccess() {
@@ -66,13 +62,13 @@ public class NetworkItem {
      */
     public NetworkItem(NetworkCommander networkCommander) {
         Objects.requireNonNull(networkCommander);
-        this.charset = new SimpleStringProperty(networkCommander.getCharset());
+        this.charset = new SimpleObjectProperty<CharsetList>(networkCommander.getCharset());
         this.numberItems = new SimpleIntegerProperty(networkCommander.getCharacterList().size());
         this.access = new SimpleBooleanProperty(networkCommander.isAccess());
         Date date = networkCommander.getTrainDate();
         String dateStr = date.compareTo(new Date(0L)) > 0 ? date.toString() : "Not trained";
         this.trainDate = new SimpleStringProperty(dateStr);
-        this.lastModified = new SimpleStringProperty(FileManager.lastModified(this.charset.get()));
+        this.lastModified = new SimpleStringProperty(FileManager.lastModified(this.charset.get().name()));
     }
 
 

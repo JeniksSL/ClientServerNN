@@ -8,13 +8,8 @@ public interface Transferable {
     int loadedAtStart=0;
     DataTransfer getTransferOut();
     void setTransferIn(DataTransfer dataTransferIn);
-
     default boolean isReceive(){
         return false;
-    }
-
-    static int getLoadedAtStart (){
-        return loadedAtStart;
     }
 
 

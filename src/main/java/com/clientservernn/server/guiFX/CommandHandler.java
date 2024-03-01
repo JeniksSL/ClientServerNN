@@ -67,7 +67,7 @@ public final class CommandHandler {
      */
     public static void uploadNetwork(CharsetList charset) {
         if(!networkList.containsKey(charset)) {
-            NetworkCommander networkCommander = new NetworkCommander(charset.name());
+            NetworkCommander networkCommander = new NetworkCommander(charset);
             networkList.put(charset, networkCommander);
         }
     }

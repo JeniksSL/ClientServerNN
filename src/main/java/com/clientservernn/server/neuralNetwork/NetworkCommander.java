@@ -6,6 +6,7 @@
 package com.clientservernn.server.neuralNetwork;
 
 
+import com.clientservernn.common.CharsetList;
 import com.clientservernn.dataTransfer.ImageData;
 import com.clientservernn.server.utilities.FileManager;
 import com.clientservernn.server.utilities.RawCharData;
@@ -31,7 +32,7 @@ public class NetworkCommander {
      * The {@code charset} of  {@code NetworkCommander} instance.
      *
      */
-    private final String charset;
+    private final CharsetList charset;
 
     /**
      * The {@link List} that contains all characters of given {@code charset}.
@@ -74,13 +75,13 @@ public class NetworkCommander {
      *         given charset.
      * @throws NullPointerException if {@code charset} is null.
      */
-    public NetworkCommander(String charset) {
+    public NetworkCommander(CharsetList charset) {
         Objects.requireNonNull(charset);
         this.charset = charset;
-        this.characterList = FileManager.getCharList(charset);
+        this.characterList = FileManager.getCharList(charset.name());
         this.access = false;
         this.trainDate = new Date(0L);
-        this.trainData = RawCharData.getTrainData(charset);
+        this.trainData = RawCharData.getTrainData(charset.name());
         this.characterNetwork = new Network<>(new int[]{DATA_WIDTH*DATA_HEIGHT, this.characterList.size()}, 0.1, Util::sigmoid, Util::derivativeSigmoid);
 
     }
@@ -89,7 +90,7 @@ public class NetworkCommander {
      * Refreshes data in {@code characterList} by loading from storage.
      */
     public void refreshTrainData() {
-        this.trainData = RawCharData.getTrainData(this.charset);
+        this.trainData = RawCharData.getTrainData(this.charset.name());
     }
 
     /**
@@ -160,16 +161,14 @@ public class NetworkCommander {
      * Reverse access value of this {@code NetworkCommander}.
      */
     public void changeAccess() {
-
         this.access = !this.access;
-        System.out.println(characterNetwork.toString());
     }
 
     /**
      * Returns {@code charset} of this {@code NetworkCommander}.
      * @return  {@code charset} of this {@code NetworkCommander}.
      */
-    public String getCharset() {
+    public CharsetList getCharset() {
         return this.charset;
     }
 

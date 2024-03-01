@@ -22,12 +22,12 @@ public class DataTransfer {
 
 
     /**
-     * A constant holding current version of {@code DataTransfer}
+     * The constant holding current version of {@code DataTransfer}
      */
     public static final double versionID= 1.01;
 
     /**
-     * A sum of sizes in bytes of {@code DataTransfer} primitive
+     * The sum of sizes in bytes of {@code DataTransfer} primitive
      * data fields with constant size, except itself, including {@code command}.
      * Field {@code command} is determined as {@code int}.
      */
@@ -61,7 +61,7 @@ public class DataTransfer {
 
 
     /**
-     * Creates a new {@code DataTransfer} with image {@code ImageData}, message {@code String},
+     * Allocate a new {@code DataTransfer} with image {@code ImageData}, message {@code String},
      * command {@code Command} and position for CRUD operations.
      *
      * @param  imageData
@@ -91,7 +91,7 @@ public class DataTransfer {
     }
 
     /**
-     * Creates a new {@code DataTransfer} with image {@code ImageData}, message {@code String},
+     * Allocate a new {@code DataTransfer} with image {@code ImageData}, message {@code String},
      * command {@code Command}. Position set by -1, it is means that no CRUD operations is required;
      *
      * @param  imageData
@@ -308,7 +308,7 @@ public class DataTransfer {
                 ObjectInputStream ois = new ObjectInputStream(bais);
                 message= (String[]) ois.readObject();
             } catch (IOException | ClassNotFoundException e) {
-                throw new IOException(e.getMessage());
+                throw new IOException(e);
             }
 
         }

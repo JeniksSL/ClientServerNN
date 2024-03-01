@@ -4,8 +4,7 @@ import javafx.scene.image.Image;
 
 import java.io.InvalidObjectException;
 import java.nio.ByteBuffer;
-
-
+import java.util.Arrays;
 
 
 /**
@@ -31,7 +30,7 @@ public abstract class ImageDataUtil extends ImageData {
     }
 
     /**
-     * Extracts data from the image {@link javafx.scene.image.Image}
+     * Extracts data from the image {@link Image}
      * and returns a new {@link  ImageData} object based on the data.
      *
      * @param   image
@@ -136,9 +135,9 @@ public abstract class ImageDataUtil extends ImageData {
      * The color of each pixel of new image in grayscale is calculated as the
      * arithmetic mean of the sum of colors of all the original pixels in the area.
      * The alpha always is 1.0.
-     * @return new rescaled {@code StandardImage}.
+     * @return new rescaled {@code Standard Image}.
      */
-    public static ImageData getStandardData(ImageData imageData){
+    public static ImageData getStandard(ImageData imageData){
         if (imageData.isStandard()){
             return imageData;
         }
@@ -164,6 +163,16 @@ public abstract class ImageDataUtil extends ImageData {
         return new ImageData(imageARGB, DATA_WIDTH, DATA_HEIGHT);
     }
 
+    /**
+     * Returns {@link  ImageData} represents white image with standard dimensions.
+     * @return new white {@code Standard Image}.
+     */
+    public static ImageData getStandardWhite(){
+        byte[] imageARGB=new byte[DATA_WIDTH*DATA_HEIGHT];
+        Arrays.fill(imageARGB,(byte) 0xFF);
+        return new ImageData(imageARGB, DATA_WIDTH, DATA_HEIGHT);
+    }
+
 
     /**
      * Encodes this {@link  ImageData} into a sequence of bytes using the given
@@ -183,7 +192,6 @@ public abstract class ImageDataUtil extends ImageData {
 
     /**
      * Constructs a new {@link  ImageData} from {@code byte} array source.
-     *
      *
      * @param   sourceArray     the byte array.
      * @return  a new {@code ImageData}.

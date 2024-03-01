@@ -11,7 +11,7 @@ import static com.clientservernn.dataTransfer.ImageDataUtil.DATA_WIDTH;
 
 
 /**
- * This class contains the data extracted from the image {@link javafx.scene.image.Image}.
+ * This class contains the data extracted from the image {@link Image}.
 
  * @author  Yauheni Slabko
  * @since   1.0
@@ -84,9 +84,9 @@ public class ImageData {
 
 
     /**
-     * Returns image {@link javafx.scene.image.Image} that represented in {@code ImageData} object.
+     * Returns image {@link Image} that represented in {@code ImageData} object.
      *
-     * @return image {@link javafx.scene.image.Image}.
+     * @return image {@link Image}.
      */
     public Image getImage(){
         WritableImage writableImage=new WritableImage(this.width, this.height);

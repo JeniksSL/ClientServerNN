@@ -53,7 +53,6 @@ public final class  FileManager {
      * pass current charset, did not put it in {@link HashMap<>} and adds caught exception
      * to {@link ExceptionHandler}.
      *
-     *
      * @return  a {@link HashMap<>} with {@link String} key - name of charset,
      * and  {@link File} array value - saved information about each character of charset.
      * If there are no characters in the charset, it returns value as empty array.
